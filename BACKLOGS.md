@@ -27,7 +27,9 @@
 [ ] Implementar roles de usuário: "comum" e "admin".</br>
 [ ] Permitir que usuários comuns visualizem apenas suas próprias tarefas.</br>
 [ ] Permitir que o perfil "admin" visualize todas as tarefas criadas no sistema.</br>
+[ ] Criar um middleware para proteger as rotas pelo roles </br>
 
 **Extras**</br>
-[ ] Adicionar testes unitários básicos para funcionalidades principais (opcional).</br>
+[ ] Adicionar testes unitários básicos para funcionalidades principais.</br>
 [ ] Configurar ambiente e repositório </br>
+[ ] DarkMode</br>
