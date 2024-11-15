@@ -11,8 +11,7 @@ import ApplicationTitle from '@/Components/ApplicationTitle.vue';
     >
                
         <div class="mt-6 w-full overflow-hidden bg-white px-6 py-4 shadow-md sm:max-w-md sm:rounded-lg sm:mt-15 lg:self-end lg:mr-60">            
-            <div class="mb-3 flex items-center space-x-4">
-                <ApplicationLogo class="h-10 w-10" />
+            <div class="mb-3 flex items-center space-x-4">                
                 <ApplicationTitle />
             </div>
             <slot />
