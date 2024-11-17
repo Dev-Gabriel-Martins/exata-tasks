@@ -1,6 +1,5 @@
 <script setup>
 import { ref } from 'vue';
-import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
@@ -13,7 +12,7 @@ const showingNavigationDropdown = ref(false);
 
 <template>
     <div>
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen bg-gray-200">
             <nav
                 class="border-b border-gray-100 bg-white"
             >
@@ -24,9 +23,7 @@ const showingNavigationDropdown = ref(false);
                             <!-- Logo -->
                             <div class="flex shrink-0 items-center">
                                 <Link :href="route('dashboard')">
-                                    <ApplicationTitle
-                                        class="block h-9 w-auto fill-current text-gray-800"
-                                    />
+                                    <ApplicationTitle />
                                 </Link>
                             </div>
 
@@ -40,6 +37,13 @@ const showingNavigationDropdown = ref(false);
                                 >
                                     Dashboard
                                 </NavLink>
+
+                                <NavLink
+                                    :href="route('tasks.index')"
+                                    :active="route().current('tasks.index')"                                    
+                                >
+                                    Tasks
+                                 </NavLink>    
                             </div>
                         </div>
 
@@ -146,6 +150,12 @@ const showingNavigationDropdown = ref(false);
                             :active="route().current('dashboard')"
                         >
                             Dashboard
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            :href="route('tasks.index')"
+                            :active="route().current('tasks.index')"
+                        >
+                            Tasks
                         </ResponsiveNavLink>
                     </div>
 

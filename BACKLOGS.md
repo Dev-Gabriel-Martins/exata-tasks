@@ -21,12 +21,12 @@
 [ ] Implementar validação para campos obrigatórios (ex: título e status).</br>
 [ ] Validar comprimento e formato de entrada para o campo título.</br>
 [ ] Validar que o campo status tenha um valor permitido ("pendente", "em andamento" ou "concluída").</br>
-[✅] Validar que o e-mail seja único e tenha formato válido.</br>
+[ ] Validar que o e-mail seja único e tenha formato válido.</br>
 
 **Permissões**</br>
-[ ] Implementar roles de usuário: "comum" e "admin".</br>
-[ ] Permitir que usuários comuns visualizem apenas suas próprias tarefas.</br>
-[ ] Permitir que o perfil "admin" visualize todas as tarefas criadas no sistema.</br>
+[✅] Implementar roles de usuário: "comum" e "admin".</br>
+[✅] Permitir que usuários comuns visualizem apenas suas próprias tarefas.</br>
+[✅] Permitir que o perfil "admin" visualize todas as tarefas criadas no sistema.</br>
 [ ] Criar um middleware para proteger as rotas pelo roles </br>
 
 **Extras**</br>
