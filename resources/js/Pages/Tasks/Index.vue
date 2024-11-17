@@ -1,6 +1,6 @@
 <script setup>
 import { reactive, ref } from 'vue';
-import { Head, router, } from '@inertiajs/vue3';
+import { Head, Link, router, } from '@inertiajs/vue3';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
@@ -84,52 +84,100 @@ const cancelDelete = () => {
 };
 
 const formatDate = (dateString) => {
-  const date = new Date(dateString);
-  return new Intl.DateTimeFormat('pt-BR', {
-    day: '2-digit',
-    month: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-  }).format(date);
+    const date = new Date(dateString);
+    return new Intl.DateTimeFormat('pt-BR', {
+        day: '2-digit',
+        month: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+    }).format(date);
 };
 
+const filters = ref({
+    status: '',
+    sort_by: '',
+});
+
+const applyFilters = () => {
+    const query = Object.entries(filters.value)
+        .filter(([_, value]) => value)
+        .map(([key, value]) => `${key}=${value}`)
+        .join('&');
+
+    window.location.search = query;
+};
 </script>
 <template>
+
     <Head title="Tasks" />
 
     <AuthenticatedLayout>
         <template #header>
             <h2 class="text-xl font-semibold leading-tight text-gray-900"> Tasks </h2>
         </template>
-        
-        <Card></Card>
+
+        <Card>
+            <div class="flex inline items-center">
+                <InputLabel for="status" value="Status:" class="mr-4" />
+                <select v-model="filters.status"
+                    class="rounded-md border-gray-300 shadow-sm focus:border-[#f8a200] focus:ring-[#f8a200] mr-4 ">
+                    <option value="">Todos </option>
+                    <option value="0">Pendente</option>
+                    <option value="1">Em Andamento</option>
+                    <option value="2">Concluída</option>
+                </select>
+                <InputLabel for="status" value="Data:" class="mr-4" />
+                <select v-model="filters.sort_by"
+                    class="rounded-md border-gray-300 shadow-sm focus:border-[#f8a200] focus:ring-[#f8a200] mr-4 ">
+                    <option value="">Nenhum</option>
+                    <option value="created_at">Criação</option>
+                    <option value="updated_at">Atualização</option>
+                </select>
+                <Link @click="applyFilters" class="mt-2 ">Aplicar Filtros</Link>
+            </div>        
+        </Card>
 
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-            <div class="grid grid-cols-5 gap-3 md:grid-cols-5 lg:gap-5">                
+            <div class="grid grid-cols-5 gap-3 md:grid-cols-5 lg:gap-5">
                 <!--Lista-->
-                <div class="col-span-3 md:col-span-3"> 
+                <div class="col-span-3">
                     <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                         <div v-if="$page.props.tasks.data.length" class="overflow-x-auto">
                             <table class="min-w-full divide-y divide-gray-200">
                                 <thead class="bg-gray-100">
                                     <tr>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"> Título</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">  Status</th>                                       
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"> Criação </th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"> Atualização </th>
+                                        <th
+                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Título</th>
+                                        <th
+                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Status</th>
+                                        <th
+                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Criação </th>
+                                        <th
+                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Atualização </th>
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-200">
                                     <tr v-for="task in $page.props.tasks.data" :key="task.id"
                                         class="hover:bg-gray-100 focus:bg-gray-100">
-                                        <td class="px-6 py-4" @click="selectTask(task)"> {{ task.title.length > 25 ? task.description.slice(0, 25) + '...' : task.title }}</td>
+                                        <td class="px-6 py-4" @click="selectTask(task)"> {{ task.title.length > 25 ?
+                                            task.description.slice(0, 25) + '...' : task.title }}</td>
                                         <td class="px-6 py-4" @click="selectTask(task)">
-                                            <span v-if="task.status === 0"class="bg-yellow-100 text-yellow-800 px-2.5 py-0.5 rounded">Pendente</span>
-                                            <span v-else-if="task.status === 1" class="bg-blue-100 text-blue-800 px-2.5 py-0.5 rounded">Em Andamento</span>
-                                            <span v-else class="bg-green-100 text-green-800 px-2.5 py-0.5 rounded">Concluída</span>
-                                        </td>                                        
-                                        <td class="px-6 py-4" @click="selectTask(task)">{{ formatDate(task.created_at) }}</td>
-                                        <td class="px-6 py-4" @click="selectTask(task)">{{ formatDate(task.updated_at) }}</td>
+                                            <span v-if="task.status === 0"
+                                                class="bg-yellow-100 text-yellow-800 px-2.5 py-0.5 rounded">Pendente</span>
+                                            <span v-else-if="task.status === 1"
+                                                class="bg-blue-100 text-blue-800 px-2.5 py-0.5 rounded">Em
+                                                Andamento</span>
+                                            <span v-else
+                                                class="bg-green-100 text-green-800 px-2.5 py-0.5 rounded">Concluída</span>
+                                        </td>
+                                        <td class="px-6 py-4" @click="selectTask(task)">{{ formatDate(task.created_at)
+                                            }}</td>
+                                        <td class="px-6 py-4" @click="selectTask(task)">{{ formatDate(task.updated_at)
+                                            }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -137,9 +185,9 @@ const formatDate = (dateString) => {
                         <p v-else class="p-6 text-gray-900">Sem tarefas por enquanto</p>
                     </div>
                 </div>
-                 <!--Fim da Lista-->
+                <!--Fim da Lista-->
                 <!-- Formulário -->
-                <div class="col-span-2 md:col-span-2">
+                <div class="col-span-2">
                     <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg p-6">
                         <h3 class="text-lg font-semibold text-gray-900 mb-4">
                             {{ isEditMode ? 'Editar Tarefa' : 'Criar Tarefa' }}
@@ -182,7 +230,9 @@ const formatDate = (dateString) => {
     <Modal :show="isModalVisible" @close="cancelDelete" max-width="md">
         <div class="p-6">
             <h2 class="text-lg font-medium text-gray-900">Confirmação de Exclusão</h2>
-            <p class="mt-4 text-sm text-gray-600">Você tem certeza que deseja excluir esta tarefa? Esta ação não pode ser desfeita.</p>
+            <p class="mt-4 text-sm text-gray-600">Você tem certeza que deseja excluir esta tarefa? Esta ação não pode
+                ser
+                desfeita.</p>
             <div class="mt-6 flex justify-end gap-4">
                 <SecondaryButton @click="cancelDelete">Cancelar</SecondaryButton>
                 <DangerButton @click="confirmDeleteTask">Confirmar</DangerButton>

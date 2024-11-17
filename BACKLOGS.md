@@ -11,11 +11,12 @@
 [✅] Implementar edição de tarefas para usuários autenticados.</br>
 [✅] Implementar visualização de detalhes das tarefas.</br>
 [✅] Permitir exclusão de tarefas.</br>
+[ ] Deixar responsivo.</br>
 
 **Filtros**</br>
-[ ] Adicionar filtros para exibir tarefas com base no status.</br>
-[ ] Adicionar ordenação de tarefas por data de criação.</br>
-[ ] Adicionar ordenação de tarefas por data de atualização.</br>
+[✅] Adicionar filtros para exibir tarefas com base no status.</br>
+[✅] Adicionar ordenação de tarefas por data de criação.</br>
+[✅] Adicionar ordenação de tarefas por data de atualização.</br>
 
 **Validação**</br>
 [✅] Implementar validação para campos obrigatórios.</br>
@@ -31,5 +32,5 @@
 
 **Extras**</br>
 [ ] Adicionar testes unitários básicos para funcionalidades principais.</br>
-[ ] Configurar ambiente e repositório </br>
-[ ] DarkMode</br>
+[ ] Configurar Docker </br>
+
