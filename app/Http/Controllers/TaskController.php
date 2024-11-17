@@ -51,20 +51,6 @@ class TaskController extends Controller
             ->with('success', 'Task criada com sucesso.');
     }
 
-    public function show(Task $task): Response
-    {   
-        Gate::authorize('role-tasks-check', $task);
-
-        return Inertia::render('Tasks/Show',['tasks' => $task]);
-    }
-
-    public function edit(Task $task)
-    {   
-        Gate::authorize('role-tasks-check', $task);
-
-        return Inertia::render('Tasks/Edit',['tasks' => $task]);
-    }
-
     public function update(TaskRequest $request, Task $task): RedirectResponse
     {   
 
