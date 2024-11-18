@@ -31,6 +31,9 @@
 [✅] Criar um middleware para proteger as rotas pelo roles </br>
 
 **Extras**</br>
-[ ] Adicionar testes unitários básicos para funcionalidades principais.</br>
+[✅] Adicionar testes unitários básicos para funcionalidades principais.</br>
+![alt text](image.png)
 [ ] Configurar Docker </br>
+[ ] Modulo gerenciar Users </br>
+[ ] Kanban interativo Dashboard </br>
 
