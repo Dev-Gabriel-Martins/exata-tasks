@@ -142,7 +142,7 @@ const applyFilters = () => {
                 <!--Lista-->
                 <div class="col-span-3">
                     <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                        <div v-if="$page.props.tasks.data.length" class="overflow-x-auto">
+                        <div v-if="$page.props.tasks.data" class="overflow-x-auto">
                             <table class="min-w-full divide-y divide-gray-200">
                                 <thead class="bg-gray-100">
                                     <tr>

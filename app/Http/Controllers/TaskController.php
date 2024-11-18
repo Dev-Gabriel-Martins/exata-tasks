@@ -32,20 +32,18 @@ class TaskController extends Controller
             $query->orderBy($request->sort_by, 'desc');
         }
 
-        $tasks = $query->paginate(10);
+        $tasks = $query->get();
 
         return Inertia::render('Tasks/Index', ['tasks' => $tasks]);
-    }
-
-    public function create(): Response
-    {
-        return Inertia::render('Tasks/Create');
     }
 
     public function store(TaskRequest $request): RedirectResponse
     {
 
         $validated = $request->validated();
+
+        $validated['user_id'] = Auth::id();
+
         Task::create($validated);
 
         return redirect()
@@ -58,7 +56,7 @@ class TaskController extends Controller
 
         Gate::authorize('role-tasks-check', $task);
 
-        $validated = $request->validated();
+        $validated = $request->validated();                
 
         $task->update($validated);
 
