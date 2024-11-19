@@ -10,6 +10,7 @@ import DangerButton from '@/Components/DangerButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import Modal from '@/Components/Modal.vue';
 import Card from '@/Components/Card.vue';
+import FlashMessage from "@/Components/FlashMessage.vue";
 
 const form = reactive({
     id: null,
@@ -113,9 +114,9 @@ const applyFilters = () => {
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="text-xl font-semibold leading-tight text-gray-900"> Tasks </h2>
+            <h2 class="text-xl font-semibold leading-tight text-gray-900"> Tasks </h2>           
         </template>
-
+        <FlashMessage v-if="$page.props.flash.message" :message="$page.props.flash.message"/>
         <Card>
             <div class="flex inline items-center">
                 <InputLabel for="status" value="Status:" class="mr-4" />
@@ -134,7 +135,10 @@ const applyFilters = () => {
                     <option value="updated_at">Atualização</option>
                 </select>
                 <Link @click="applyFilters" class="mt-2 ">Aplicar Filtros</Link>
-            </div>        
+                <div class="mrl-30">
+                
+            </div>
+            </div>
         </Card>
 
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -142,7 +146,7 @@ const applyFilters = () => {
                 <!--Lista-->
                 <div class="col-span-3">
                     <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                        <div v-if="$page.props.tasks.data" class="overflow-x-auto">
+                        <div v-if="$page.props.tasks.data.length" class="overflow-x-auto">
                             <table class="min-w-full divide-y divide-gray-200">
                                 <thead class="bg-gray-100">
                                     <tr>
@@ -226,6 +230,12 @@ const applyFilters = () => {
                 <!-- Fim do Formulário -->
             </div>
         </div>
+
+        
+          
+
+
+
     </AuthenticatedLayout>
     <Modal :show="isModalVisible" @close="cancelDelete" max-width="md">
         <div class="p-6">

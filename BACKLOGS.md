@@ -11,7 +11,7 @@
 [✅] Implementar edição de tarefas para usuários autenticados.</br>
 [✅] Implementar visualização de detalhes das tarefas.</br>
 [✅] Permitir exclusão de tarefas.</br>
-[ ] Deixar responsivo.</br>
+[✅] Deixar responsivo.</br>
 
 **Filtros**</br>
 [✅] Adicionar filtros para exibir tarefas com base no status.</br>
@@ -22,7 +22,7 @@
 [✅] Implementar validação para campos obrigatórios.</br>
 [✅] Validar comprimento e formato de entrada para o campo título.</br>
 [✅] Validar que o campo status tenha um valor permitido ("pendente", "em andamento" ou "concluída").</br>
-[ ] Validar que o e-mail seja único e tenha formato válido.</br>
+[✅] Validar que o e-mail seja único e tenha formato válido.</br>
 
 **Permissões**</br>
 [✅] Implementar roles de usuário: "comum" e "admin".</br>
@@ -33,7 +33,8 @@
 **Extras**</br>
 [✅] Adicionar testes unitários básicos para funcionalidades principais.</br>
 ![alt text](image.png)
-[ ] Configurar Docker </br>
-[ ] Modulo gerenciar Users </br>
-[ ] Kanban interativo Dashboard </br>
+[✅] Configurar Docker </br>
+[] Toast de notificação reativo, usando FlashMessage do Inertia </br>
+[✅] Script de ativação </br>
+
 

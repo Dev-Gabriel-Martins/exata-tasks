@@ -2,19 +2,20 @@
 
 namespace Database\Seeders;
 
+use App\Models\Task;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
-class UserSeeder extends Seeder
+class AdminSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        User::create([
+        $user = User::create([
             'name' => 'Admin',
             'email' => 'admin@admin.com',            
             'password' => Hash::make('admin123'),
@@ -23,13 +24,11 @@ class UserSeeder extends Seeder
             'updated_at' => now(),
         ]);
 
-        User::create([
-            'name' => 'User',
-            'email' => 'test@test',            
-            'password' => Hash::make('test123'),
-            'role' => 'user',
-            'created_at' => now(),
-            'updated_at' => now(),
+        Task::create([
+            'title' => 'Aprovar o Gabriel',
+            'description' => 'Aprovar o Gabriel para proxima fase :D',
+            'status' => 1,
+            'user_id' => $user->id,
         ]);
 
     }

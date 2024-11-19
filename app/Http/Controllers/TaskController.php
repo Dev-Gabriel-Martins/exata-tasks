@@ -19,12 +19,13 @@ class TaskController extends Controller
         $query = Task::query();
 
         $allowedSortFields = ['created_at', 'updated_at'];
+        $allowedStatusFields = [0,1,2];
 
         if (Gate::denies('admin-check')) {
             $query->where('user_id', Auth::id());
         }
         
-        if ($request->has('status') && TaskStatus::tryFrom($request->status)) {
+        if ($request->has('status') && in_array($request->status, $allowedStatusFields, true)) {
             $query->where('status', $request->status);
         }
         
@@ -32,7 +33,7 @@ class TaskController extends Controller
             $query->orderBy($request->sort_by, 'desc');
         }
 
-        $tasks = $query->get();
+        $tasks = $query->paginate(100);
 
         return Inertia::render('Tasks/Index', ['tasks' => $tasks]);
     }
@@ -48,7 +49,7 @@ class TaskController extends Controller
 
         return redirect()
             ->route('tasks.index')
-            ->with('success', 'Task criada com sucesso.');
+            ->with('message', 'Task criada com sucesso.');
     }
 
     public function update(TaskRequest $request, Task $task): RedirectResponse
@@ -62,7 +63,7 @@ class TaskController extends Controller
 
         return redirect()
             ->route('tasks.index')
-            ->with('success', 'Task atualizada com sucesso.');
+            ->with('message', 'Task atualizada com sucesso.');
     }
 
     public function destroy(Task $task): RedirectResponse
@@ -73,6 +74,6 @@ class TaskController extends Controller
 
         return redirect()
             ->route('tasks.index')
-            ->with('success', 'Task apagada com sucesso.');
+            ->with('message', 'Task apagada com sucesso.');
     }
 }

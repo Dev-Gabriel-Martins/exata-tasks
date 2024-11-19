@@ -33,7 +33,9 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        return redirect()->intended(route('tasks.index', absolute: false))
+        ->with('message', 'Bem vindo ao Exata Tasks ' . Auth::user()->name .
+        'dei o meu melhor, espero que goste!');
     }
 
     /**

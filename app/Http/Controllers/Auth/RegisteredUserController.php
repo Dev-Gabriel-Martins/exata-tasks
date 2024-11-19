@@ -46,6 +46,7 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('tasks.index', absolute: false))->with('message', 'Bem vindo ao Exata Tasks ' . Auth::user()->name .
+        'dei o meu melhor, espero que goste!');
     }
 }
