@@ -34,7 +34,8 @@
 [✅] Adicionar testes unitários básicos para funcionalidades principais.</br>
 ![alt text](image.png)
 [✅] Configurar Docker </br>
-[] Toast de notificação reativo, usando FlashMessage do Inertia </br>
+[✅] Toast de notificação reativo, usando FlashMessage do Inertia </br>
 [✅] Script de ativação </br>
+[ ] DarkMode </br>
 
 

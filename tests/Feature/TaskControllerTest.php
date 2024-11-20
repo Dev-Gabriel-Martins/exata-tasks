@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Gate;
 use Tests\TestCase;
 
 class TaskControllerTest extends TestCase
@@ -56,9 +57,7 @@ class TaskControllerTest extends TestCase
         $this->assertDatabaseHas('tasks', ['title' => 'Tarefa Atualizada']);
     }
 
-    /**
-     * Testa se o usuário pode deletar uma tarefa
-     */
+    
     public function test_user_can_delete_task()
     {
         $user = User::factory()->create();
@@ -70,9 +69,6 @@ class TaskControllerTest extends TestCase
         $this->assertDatabaseMissing('tasks', ['id' => $task->id]);
     }
 
-    /**
-     * Testa se um usuário sem permissão não pode acessar as tarefas de outro usuário
-     */
     public function test_user_cannot_access_another_users_tasks()
     {
         $user1 = User::factory()->create();
@@ -80,8 +76,35 @@ class TaskControllerTest extends TestCase
         $task = Task::factory()->create(['user_id' => $user2->id]);
 
         $response = $this->actingAs($user1)->get(route('tasks.index'));
-        $response->assertDontSee($task->title); // O título da tarefa não deve estar presente
+        $response->assertDontSee($task->title); 
+    }
+   
+    public function test_admin_passes_role_tasks_check_gate()
+    {
+        $admin = User::factory()->create(['role' => 'admin']);
+        $task = Task::factory()->create(['user_id' => $admin->id]);
+
+        // Simulate the admin being logged in
+        $this->actingAs($admin);
+
+        $this->assertTrue(Gate::allows('role-tasks-check', $task));
     }
 
-    
+    public function test_task_creator_passes_role_tasks_check_gate()
+    {
+        $user = User::factory()->create();
+        $task = Task::factory()->create(['user_id' => $user->id]);
+
+        $this->actingAs($user);
+
+        $this->assertTrue(Gate::allows('role-tasks-check', $task));
+    }
+
+    public function test_non_authorized_user_fails_role_tasks_check_gate()
+    {
+        $user = User::factory()->create();
+        $task = Task::factory()->create(['user_id' => User::factory()->create()->id]);
+
+        $this->assertFalse(Gate::allows('role-tasks-check', $task));
+    }
 }
