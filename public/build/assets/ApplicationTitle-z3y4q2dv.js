@@ -1,0 +1,1 @@
+import{_ as e}from"./_plugin-vue_export-helper-DlAUqK2U.js";import{o as a,f as o,b as s}from"./app-Dhpvmu4O.js";const n={},r={class:"text-4xl font-bold tracking-wide"};function c(i,t){return a(),o("h1",r,t[0]||(t[0]=[s("span",{class:"text-[#f8a200]"},"Exata",-1),s("span",{class:"text-gray-600"},"Tasks",-1)]))}const p=e(n,[["render",c]]);export{p as A};
