@@ -11,12 +11,14 @@ import SecondaryButton from '@/Components/SecondaryButton.vue';
 import Modal from '@/Components/Modal.vue';
 import Card from '@/Components/Card.vue';
 import FlashMessage from "@/Components/FlashMessage.vue";
+import TextAreaInput from '@/Components/TextAreaInput.vue';
 
 const form = reactive({
     id: null,
     title: '',
     description: '',
     status: 0,
+    username: '',
 });
 
 const errors = reactive({});
@@ -52,8 +54,14 @@ const selectTask = (task) => {
     form.title = task.title;
     form.description = task.description;
     form.status = task.status;
+    form.username = task.user.name;
+    form.created_at = formatDate(task.created_at);
+    form.updated_at = formatDate(task.updated_at);
+
     isEditMode.value = true;
 };
+
+
 
 const openDeleteModal = (id) => {
     taskToDelete.value = id;
@@ -114,9 +122,9 @@ const applyFilters = () => {
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="text-xl font-semibold leading-tight text-gray-900"> Tasks </h2>           
+            <h2 class="text-xl font-semibold leading-tight text-gray-900"> Tasks </h2>
         </template>
-        <FlashMessage v-if="$page.props.flash.message" :message="$page.props.flash.message"/>
+        <FlashMessage v-if="$page.props.flash.message" :message="$page.props.flash.message" />
         <Card>
             <div class="flex inline items-center">
                 <InputLabel for="status" value="Status:" class="mr-4" />
@@ -136,8 +144,8 @@ const applyFilters = () => {
                 </select>
                 <Link @click="applyFilters" class="mt-2 ">Aplicar Filtros</Link>
                 <div class="mrl-30">
-                
-            </div>
+
+                </div>
             </div>
         </Card>
 
@@ -216,25 +224,35 @@ const applyFilters = () => {
                             </div>
                             <div class="mb-4">
                                 <InputLabel for="description" value="Descrição" />
-                                <TextInput v-model="form.description" id="description" type="text" class="w-full" />
+                                <TextAreaInput v-model="form.description" id="description" type="text" class="w-full" />
                                 <InputError :message="errors.description" />
                             </div>
-                            <div class="mt-8 flex justify-start gap-4">
+                            <div class="mt-4 flex justify-start gap-4">
                                 <PrimaryButton type="submit">{{ isEditMode ? 'Atualizar' : 'Criar' }} </PrimaryButton>
                                 <DangerButton v-if="isEditMode" @click="openDeleteModal(form.id)">Apagar </DangerButton>
                                 <SecondaryButton v-if="isEditMode" @click="resetForm">Voltar</SecondaryButton>
                             </div>
                         </form>
                     </div>
+                    <div v-if="isEditMode" class="mt-4 overflow-hidden bg-white shadow-sm sm:rounded-lg p-6">
+                        <div class="flex justify-start gap-4">
+                            <div>
+                                <InputLabel for="title" value="Usuário" />
+                                <TextInput v-model="form.username" id="username" type="text" class="w-full" readonly />
+                            </div>
+                            <div>
+                                <InputLabel for="title" value="Criação" />
+                                <TextInput v-model="form.created_at" id="username" type="text" class="w-full" readonly/>
+                            </div>
+                            <div>
+                                <InputLabel for="title" value="Atualização" />
+                                <TextInput v-model="form.updated_at" id="username" type="text" class="w-full" readonly />
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <!-- Fim do Formulário -->
             </div>
         </div>
-
-        
-          
-
-
 
     </AuthenticatedLayout>
     <Modal :show="isModalVisible" @close="cancelDelete" max-width="md">

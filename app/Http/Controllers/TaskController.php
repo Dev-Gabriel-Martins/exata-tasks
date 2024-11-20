@@ -16,7 +16,7 @@ class TaskController extends Controller
 {
     public function index(Request $request): Response
     {
-        $query = Task::query();
+        $query = Task::query()->with('user');
 
         $allowedSortFields = ['created_at', 'updated_at'];
         $allowedStatusFields = [0,1,2];

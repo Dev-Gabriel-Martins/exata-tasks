@@ -35,7 +35,7 @@ class AuthenticatedSessionController extends Controller
 
         return redirect()->intended(route('tasks.index', absolute: false))
         ->with('message', 'Bem vindo ao Exata Tasks ' . Auth::user()->name .
-        'dei o meu melhor, espero que goste!');
+        ' dei o meu melhor, espero que goste!');
     }
 
     /**
