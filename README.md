@@ -97,7 +97,7 @@ php aritsan serve
 
 **Extras**</br>
 [✅] Adicionar testes unitários básicos para funcionalidades principais.</br>
-![alt text](image.png)
+![image](https://github.com/user-attachments/assets/fb390978-e6f3-44b7-aebb-23103730b9cf) </br>
 [✅] Configurar Docker </br>
 [✅] Toast de notificação reativo, usando FlashMessage do Inertia </br>
 [✅] Script de ativação </br>
