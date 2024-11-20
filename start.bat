@@ -9,14 +9,14 @@ echo Construindo a imagem do Conteiner
 echo ----------------------------------------------------
 docker-compose up -d
 echo ----------------------------------------------------
-echo Conteiner construindo, aguarde mais alguns insta
+echo Conteiner construindo, aguarde mais alguns instantes
 echo ----------------------------------------------------
 timeout /t 2 >nul
 docker-compose exec webapp php artisan migrate --seed
 echo ----------------------------------------------------
 cls
 echo ----------------------------------------------------
-echo Rodandos os Tests, com PHPUnit
+echo Rodandos os Testes 
 echo ----------------------------------------------------
 docker-compose exec webapp php artisan test
 echo ----------------------------------------------------
